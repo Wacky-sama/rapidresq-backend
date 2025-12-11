@@ -1,0 +1,24 @@
+# Environment variables
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+
+# Misc
+.cache/
+tmp/
+
+# venv
+venv/*
