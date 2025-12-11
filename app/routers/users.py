@@ -9,18 +9,18 @@ router = APIRouter(
     tags=["Users"]
 )
 
-@router.get("/", response_model=list[UserOut], tags=["Users"])
+@router.get("/", response_model=list[UserOut])
 def list_users(db: Session = Depends(get_db)):
     return db.query(User).all()
 
-@router.get("/{user_id}", response_model=UserOut, tags=["Users"])
+@router.get("/{user_id}", response_model=UserOut)
 def get_user(user_id: str, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@router.patch("/{user_id}/activate", response_model=UserOut, tags=["Users"])
+@router.patch("/{user_id}/activate", response_model=UserOut)
 def activate_user(user_id: str, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:
@@ -30,7 +30,7 @@ def activate_user(user_id: str, db: Session = Depends(get_db)):
     db.refresh(user)
     return user
 
-@router.patch("/{user_id}/deactivate", response_model=UserOut, tags=["Users"])
+@router.patch("/{user_id}/deactivate", response_model=UserOut)
 def deactivate_user(user_id: str, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.id == user_id).first()
     if not user:

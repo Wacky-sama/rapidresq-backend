@@ -3,6 +3,10 @@ from app.models.user import UserRole
 from typing import Optional
 from uuid import UUID
 
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
 # Used for creating/registering a user
 class UserCreate(BaseModel):
     email: EmailStr

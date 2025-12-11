@@ -9,7 +9,7 @@ router = APIRouter(
     tags=["Messages"]
 )
 
-@router.post("/", response_model=MessageOut, tags=["Messages"])
+@router.post("/", response_model=MessageOut)
 def send_message(msg: MessageCreate, db: Session = Depends(get_db)):
     new_msg = Message(
         emergency_id=msg.emergency_id,
@@ -21,6 +21,6 @@ def send_message(msg: MessageCreate, db: Session = Depends(get_db)):
     db.refresh(new_msg)
     return new_msg
 
-@router.get("/emergency/{emergency_id}", response_model=list[MessageOut], tags=["Messages"])
+@router.get("/emergency/{emergency_id}", response_model=list[MessageOut])
 def get_messages(emergency_id: str, db: Session = Depends(get_db)):
     return db.query(Message).filter(Message.emergency_id == emergency_id).all()

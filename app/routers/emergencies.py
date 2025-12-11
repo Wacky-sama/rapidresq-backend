@@ -9,7 +9,7 @@ router = APIRouter(
     tags=["Emergencies"]
 )
 
-@router.post("/", response_model=EmergencyOut, tags=["Emergencies"])
+@router.post("/", response_model=EmergencyOut)
 def create_emergency(emergency: EmergencyCreate, db: Session = Depends(get_db)):
     new_emergency = Emergency(
         user_id=emergency.user_id,
@@ -23,11 +23,11 @@ def create_emergency(emergency: EmergencyCreate, db: Session = Depends(get_db)):
     db.refresh(new_emergency)
     return new_emergency
 
-@router.get("/", response_model=list[EmergencyOut], tags=["Emergencies"])
+@router.get("/", response_model=list[EmergencyOut])
 def list_emergencies(db: Session = Depends(get_db)):
     return db.query(Emergency).all()
 
-@router.put("/{emergency_id}/assign", response_model=EmergencyOut, tags=["Emergencies"])
+@router.put("/{emergency_id}/assign", response_model=EmergencyOut)
 def assign_responder(emergency_id: str, responder_id: str, db: Session = Depends(get_db)):
     emergency = db.query(Emergency).filter(Emergency.id == emergency_id).first()
     if not emergency:
